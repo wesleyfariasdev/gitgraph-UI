@@ -1,0 +1,183 @@
+.graph {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.graph__header {
+  display: flex;
+  align-items: center;
+  height: 28px;
+  padding-right: 10px;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-1);
+  flex-shrink: 0;
+}
+.graph__header > :first-child {
+  padding-left: 12px;
+  flex-shrink: 0;
+}
+
+.graph__scroll {
+  flex: 1;
+  overflow: auto;
+  outline: none;
+}
+
+.graph__content {
+  position: relative;
+  min-height: 100%;
+}
+
+/* The canvas sticks to the viewport and is redrawn on scroll; rows scroll underneath it. */
+.graph__canvas {
+  position: sticky;
+  top: 0;
+  left: 0;
+  display: block;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.graph-row {
+  position: absolute;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  padding-right: 10px;
+  border-bottom: 1px solid rgba(36, 36, 63, 0.35);
+  cursor: default;
+  z-index: 1;
+}
+.graph-row:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+.graph-row.is-selected {
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--row-color, var(--cyan)) 18%, transparent),
+    rgba(0, 240, 255, 0.04) 60%
+  );
+  box-shadow: inset 2px 0 0 var(--row-color, var(--cyan));
+}
+.graph-row.is-head .subject {
+  font-weight: 700;
+}
+
+.col-message {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-left: 6px;
+  overflow: hidden;
+}
+.col-author {
+  width: 150px;
+  flex-shrink: 0;
+  padding-left: 10px;
+  color: var(--text-dim);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.col-date {
+  width: 110px;
+  flex-shrink: 0;
+  padding-left: 10px;
+  color: var(--text-dim);
+  white-space: nowrap;
+}
+.col-hash {
+  width: 70px;
+  flex-shrink: 0;
+  padding-left: 10px;
+  font-size: 11.5px;
+  color: var(--text-faint);
+}
+.graph-row.is-selected .col-hash {
+  color: var(--cyan);
+}
+
+.subject {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* ---------- ref badges ---------- */
+.badge {
+  --badge-color: var(--cyan);
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  max-width: 200px;
+  padding: 1px 7px;
+  border: 1px solid var(--badge-color);
+  color: var(--badge-color);
+  background: color-mix(in srgb, var(--badge-color) 10%, transparent);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  clip-path: polygon(0 0, calc(100% - 5px) 0, 100% 5px, 100% 100%, 5px 100%, 0 calc(100% - 5px));
+  cursor: pointer;
+}
+.badge--head {
+  background: var(--badge-color);
+  color: var(--bg-0);
+  box-shadow: 0 0 12px var(--badge-color);
+}
+.badge--remote {
+  --badge-color: var(--purple) !important;
+  border-style: dashed;
+}
+.badge--tag {
+  --badge-color: var(--yellow) !important;
+}
+.badge--detached {
+  --badge-color: var(--magenta) !important;
+  background: var(--magenta);
+  color: var(--bg-0);
+}
+.badge--more {
+  --badge-color: var(--text-dim);
+  cursor: help;
+}
+.badge__head {
+  font-size: 8px;
+}
+.badge__sync {
+  opacity: 0.75;
+  font-size: 10px;
+}
+
+/* ---------- WIP row ---------- */
+.graph-row--wip {
+  cursor: pointer;
+  background: repeating-linear-gradient(-45deg, rgba(252, 238, 10, 0.03) 0 8px, transparent 8px 16px);
+}
+.wip-tag {
+  padding: 0 7px;
+  border: 1px dashed var(--yellow);
+  color: var(--yellow);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+.wip-text {
+  color: var(--text-dim);
+  font-style: italic;
+}
+.graph-row--wip.is-selected {
+  box-shadow: inset 2px 0 0 var(--yellow);
+  background: linear-gradient(90deg, rgba(252, 238, 10, 0.12), transparent 60%);
+}

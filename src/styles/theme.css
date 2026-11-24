@@ -1,0 +1,270 @@
+:root {
+  --bg-0: #06060c;
+  --bg-1: #0b0b16;
+  --bg-2: #11111f;
+  --bg-3: #191930;
+  --line: #24243f;
+  --line-bright: #35355c;
+
+  --text: #d8e1ff;
+  --text-dim: #8089b0;
+  --text-faint: #4e5577;
+
+  --cyan: #00f0ff;
+  --magenta: #ff2e88;
+  --yellow: #fcee0a;
+  --green: #00ff9c;
+  --purple: #b44dff;
+  --orange: #ff8a00;
+  --red: #ff3b5c;
+  --blue: #3d7bff;
+
+  --accent: var(--cyan);
+  --glow-cyan: 0 0 6px rgba(0, 240, 255, 0.6), 0 0 18px rgba(0, 240, 255, 0.25);
+  --glow-magenta: 0 0 6px rgba(255, 46, 136, 0.6), 0 0 18px rgba(255, 46, 136, 0.25);
+
+  --font-mono: "JetBrains Mono", "Cascadia Code", "Cascadia Mono", Consolas, "SF Mono", monospace;
+  --font-ui: "Segoe UI Variable", "Segoe UI", "Inter", system-ui, sans-serif;
+
+  --cut: 8px;
+  --radius: 2px;
+
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--bg-0);
+  color: var(--text);
+  font-family: var(--font-ui);
+  font-size: 13px;
+  line-height: 1.4;
+  overflow: hidden;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* CRT scanlines over the whole window: subtle enough to never hurt legibility. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  background: repeating-linear-gradient(to bottom, rgba(255, 255, 255, 0.018) 0 1px, transparent 1px 3px);
+}
+
+::selection {
+  background: rgba(0, 240, 255, 0.3);
+}
+
+input,
+textarea,
+button {
+  font: inherit;
+  color: inherit;
+}
+
+/* ---------- scrollbars ---------- */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-0);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--line-bright);
+  border: 3px solid var(--bg-0);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--cyan);
+}
+
+/* ---------- shared primitives ---------- */
+.mono {
+  font-family: var(--font-mono);
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.btn {
+  --btn-color: var(--cyan);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border: 1px solid var(--btn-color);
+  background: color-mix(in srgb, var(--btn-color) 8%, transparent);
+  color: var(--btn-color);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  clip-path: polygon(
+    0 0,
+    calc(100% - var(--cut)) 0,
+    100% var(--cut),
+    100% 100%,
+    var(--cut) 100%,
+    0 calc(100% - var(--cut))
+  );
+  transition:
+    background 0.12s,
+    color 0.12s,
+    box-shadow 0.12s;
+}
+.btn:hover:not(:disabled) {
+  background: var(--btn-color);
+  color: var(--bg-0);
+  box-shadow: 0 0 16px color-mix(in srgb, var(--btn-color) 60%, transparent);
+}
+.btn:disabled {
+  --btn-color: var(--text-faint);
+  cursor: not-allowed;
+}
+.btn--magenta {
+  --btn-color: var(--magenta);
+}
+.btn--yellow {
+  --btn-color: var(--yellow);
+}
+.btn--ghost {
+  --btn-color: var(--text-dim);
+  border-color: transparent;
+  background: transparent;
+}
+.btn--ghost:hover:not(:disabled) {
+  --btn-color: var(--cyan);
+}
+.btn--big {
+  padding: 12px 26px;
+  font-size: 13px;
+}
+
+.icon-btn {
+  display: inline-grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text-dim);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+}
+.icon-btn:hover {
+  color: var(--cyan);
+  border-color: var(--cyan);
+  box-shadow: var(--glow-cyan);
+}
+
+.input {
+  width: 100%;
+  padding: 7px 10px;
+  border: 1px solid var(--line-bright);
+  background: var(--bg-0);
+  outline: none;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  user-select: text;
+  transition:
+    border-color 0.12s,
+    box-shadow 0.12s;
+}
+.input:focus {
+  border-color: var(--cyan);
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 240, 255, 0.25),
+    0 0 12px rgba(0, 240, 255, 0.15);
+}
+.input::placeholder {
+  color: var(--text-faint);
+}
+
+kbd {
+  display: inline-block;
+  padding: 0 5px;
+  border: 1px solid var(--line-bright);
+  border-bottom-width: 2px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-dim);
+}
+
+/* File change kind letters (M, A, D…) shared by every file list. */
+.kind {
+  display: inline-grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 800;
+  border: 1px solid currentColor;
+}
+.kind--added {
+  color: var(--green);
+}
+.kind--modified {
+  color: var(--yellow);
+}
+.kind--deleted {
+  color: var(--red);
+}
+.kind--renamed,
+.kind--copied {
+  color: var(--purple);
+}
+.kind--typeChanged {
+  color: var(--orange);
+}
+.kind--untracked {
+  color: var(--cyan);
+}
+.kind--conflicted {
+  color: var(--magenta);
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.55;
+  }
+}
+
+@keyframes scan {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(400%);
+  }
+}
