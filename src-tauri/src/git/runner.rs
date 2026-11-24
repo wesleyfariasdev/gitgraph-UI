@@ -36,7 +36,7 @@ impl<'a> Git<'a> {
             if stderr.is_empty() { String::from_utf8_lossy(&output.stdout).trim().to_string() } else { stderr };
         let command = format!("git {}", args.join(" "));
         // The UI only shows git's message; the full command line goes to the log for diagnosis.
-        eprintln!("[gitgraph] `{command}` exited with {code}: {message}");
+        eprintln!("[neongit] `{command}` exited with {code}: {message}");
         Err(GitError::CommandFailed { command, message })
     }
 

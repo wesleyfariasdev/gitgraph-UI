@@ -1,5 +1,5 @@
 [package]
-name = "gitgraph"
+name = "neongit"
 version = "0.1.0"
 description = "Open source visual Git client"
 authors = ["wesleyfariasdev"]
@@ -9,7 +9,7 @@ edition = "2024"
 [lib]
 # The `_lib` suffix avoids a name clash between the lib and bin targets on Windows.
 # See https://github.com/rust-lang/cargo/issues/8519
-name = "gitgraph_lib"
+name = "neongit_lib"
 crate-type = ["staticlib", "cdylib", "rlib"]
 
 [build-dependencies]

@@ -1,6 +1,6 @@
 import type { RepoInfo } from "../api/git";
 
-const STORAGE_KEY = "gitgraph.recentRepos";
+const STORAGE_KEY = "neongit.recentRepos";
 const MAX_RECENT = 8;
 
 export function loadRecentRepos(): RepoInfo[] {

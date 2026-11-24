@@ -98,7 +98,7 @@ pub async fn create_branch(repo: String, name: String, start_point: String, chec
     with_repo(repo, move |r| r.create_branch(&name, &start_point, checkout)).await
 }
 
-/// Path passed on the command line (`gitgraph <folder>`), so the app can be launched like `code .`.
+/// Path passed on the command line (`neongit <folder>`), so the app can be launched like `code .`.
 #[tauri::command]
 pub fn launch_path() -> Option<String> {
     std::env::args().nth(1).filter(|arg| !arg.starts_with('-'))

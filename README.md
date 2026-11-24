@@ -1,4 +1,4 @@
-# GitGraph
+# NeonGit
 
 A fast, open source visual Git client with a cyberpunk look. See your history as a neon graph, branch, stage and commit without leaving the window.
 
@@ -12,7 +12,7 @@ Built with [Tauri 2](https://tauri.app) (Rust) and React + TypeScript.
 - Working tree: stage / unstage per file, commit with summary + description (`Ctrl+Enter`)
 - Checkout branches (double-click), remote branches (creates a tracking branch) or a detached commit
 - Create a branch from any commit (`B` or right-click)
-- Open a repository from the dialog (`Ctrl+O`), by dropping its folder on the window, from the recent list, or from the command line: `gitgraph <folder>`
+- Open a repository from the dialog (`Ctrl+O`), by dropping its folder on the window, from the recent list, or from the command line: `neongit <folder>`
 - Auto-refresh when the window regains focus (`F5` to refresh manually)
 
 ## Development
